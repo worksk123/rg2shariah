@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#04120c">
+<title>Trade with Shariah</title>
+<meta name="description" content="Entry, Target aur Stop-Loss simple chart examples se seekhein. Free Telegram learning community.">
+<meta property="og:title" content="Trade with Shariah">
+<meta property="og:description" content="सरल चार्ट उदाहरणों से ट्रेडिंग सीखें — फ्री टेलीग्राम कम्युनिटी">
+<meta property="og:image" content="hafiz.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600;700&family=Noto+Nastaliq+Urdu:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#04120c;
+  --panel:#0c1f17;
+  --panel2:#102a1f;
+  --line:rgba(240,193,75,.22);
+  --gold:#f0c14b;
+  --gold-soft:#ffe08a;
+  --emerald:#1fae66;
+  --cream:#f5f9f6;
+  --muted:#9db4a8;
+  --tg:#229ed9;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(circle at 15% 8%,rgba(240,193,75,.08),transparent 40%),var(--bg);color:var(--cream);font-family:Manrope,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.hi{font-family:"Noto Sans Devanagari",Manrope,sans-serif}
+.ur{font-family:"Noto Nastaliq Urdu",serif;direction:rtl;line-height:2}
+
+.wrap{width:min(480px,100%);margin:0 auto;padding:0 20px 40px}
+
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:38px;height:38px;border-radius:10px;object-fit:cover;border:1px solid var(--line)}
+.brand strong{display:block;font-size:14px}
+.brand small{display:block;color:var(--gold);font-size:10px;margin-top:1px}
+.tg-top{display:flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;color:var(--gold);font-weight:700;font-size:11.5px;background:rgba(240,193,75,.06)}
+.tg-icon{width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:var(--tg);color:#fff;flex-shrink:0}
+.tg-icon svg{width:12px;height:12px;fill:currentColor}
+
+.hero{padding:20px 0 8px;text-align:center}
+.avatar{width:98px;height:98px;border-radius:50%;margin:0 auto 14px;border:3px solid var(--gold);overflow:hidden;box-shadow:0 0 26px rgba(240,193,75,.3)}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.badge{display:inline-flex;align-items:center;gap:7px;color:var(--emerald);font-size:11px;font-weight:700;border:1px solid rgba(31,174,102,.3);border-radius:999px;padding:6px 13px;margin-bottom:16px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--emerald);box-shadow:0 0 10px var(--emerald);animation:blink 1.3s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1{font-size:clamp(25px,7.5vw,32px);line-height:1.2;letter-spacing:-.01em;margin-bottom:6px;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--gold),var(--emerald));-webkit-background-clip:text;color:transparent}
+
+.lead{font-size:14.5px;color:var(--cream);line-height:1.75;max-width:38ch;margin:0 auto 4px}
+.lead-ur{font-size:14px;color:var(--muted);margin-bottom:18px}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:54px;padding:14px 20px;background:linear-gradient(100deg,var(--gold-soft),var(--gold));color:#20140a;font-weight:800;font-size:15px;border-radius:14px;cursor:pointer;box-shadow:0 12px 28px rgba(240,193,75,.25);transition:transform .15s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:18px;height:18px;fill:#20140a;flex-shrink:0}
+.free{display:block;text-align:center;color:var(--muted);font-size:11px;margin-top:9px}
+
+/* ---- name gate ---- */
+.namebox{margin:18px 0 14px;text-align:left}
+.namebox label{display:block;color:var(--gold-soft);font-size:12px;font-weight:700;margin-bottom:6px}
+.name-input{
+  width:100%;min-height:50px;padding:0 16px;
+  background:var(--panel);border:1.5px solid var(--line);border-radius:12px;
+  color:var(--cream);font-family:Manrope,"Noto Sans Devanagari",sans-serif;font-size:14.5px;font-weight:600;
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.name-input+.name-input{margin-top:9px}
+.age-input{-moz-appearance:textfield}
+.age-input::-webkit-outer-spin-button,.age-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.name-input::placeholder{color:var(--muted);font-weight:500}
+.name-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(240,193,75,.15)}
+.name-input.invalid{border-color:#ff4d6d!important;animation:shakeX .45s ease}
+.name-error{
+  display:flex;align-items:center;gap:6px;
+  color:#ff6b85;font-size:12.5px;font-weight:700;margin-top:8px;
+  max-height:0;opacity:0;overflow:hidden;transition:max-height .25s ease,opacity .25s ease,margin .25s ease;
+}
+.name-error.show{max-height:30px;opacity:1;animation:popIn .4s ease}
+.name-error .ic{display:inline-flex;width:16px;height:16px;border-radius:50%;background:#ff4d6d;color:#20050a;font-size:11px;font-weight:900;align-items:center;justify-content:center;flex-shrink:0;animation:pulseRing 1s ease-in-out 2}
+
+@keyframes shakeX{
+  10%,90%{transform:translateX(-2px)}
+  20%,80%{transform:translateX(4px)}
+  30%,50%,70%{transform:translateX(-8px)}
+  40%,60%{transform:translateX(8px)}
+}
+@keyframes popIn{
+  0%{transform:translateY(-4px) scale(.9);opacity:0}
+  60%{transform:translateY(0) scale(1.03);opacity:1}
+  100%{transform:translateY(0) scale(1)}
+}
+@keyframes pulseRing{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.25)}
+}
+.btn.flash-invalid{animation:btnFlash .5s ease}
+@keyframes btnFlash{
+  0%,100%{box-shadow:0 12px 28px rgba(240,193,75,.25)}
+  30%{box-shadow:0 0 0 5px rgba(255,77,109,.35),0 12px 28px rgba(240,193,75,.25);background:linear-gradient(100deg,#ff8a9c,#ff4d6d)}
+  60%{background:linear-gradient(100deg,#ff8a9c,#ff4d6d)}
+}
+
+.cards{margin-top:26px;display:flex;flex-direction:column;gap:9px}
+.card{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:13px;padding:13px 14px}
+.card .n{font-weight:800;font-size:12px;color:var(--gold);flex-shrink:0;width:20px}
+.card:nth-child(2) .n{color:var(--emerald)}
+.card:nth-child(3) .n{color:#ff7a90}
+.card h3{font-size:14.5px;margin-bottom:2px}
+.card p{color:var(--muted);font-size:12px;line-height:1.5}
+
+.info{margin-top:20px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.info h3{font-size:14px;color:var(--emerald);margin-bottom:8px}
+.info ul{margin:0;padding-left:17px;color:var(--muted);font-size:12.5px;line-height:1.85}
+
+.join{margin-top:24px;padding:22px 18px;text-align:center;background:radial-gradient(circle at top,rgba(240,193,75,.12),transparent 60%),var(--panel);border:1px solid var(--line);border-radius:18px}
+.join h2{font-size:19px;margin-bottom:6px}
+.join p{color:var(--muted);font-size:12px;margin-bottom:16px}
+
+.disc{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);color:#5f7768;font-size:10px;line-height:1.7;text-align:center}
+.footer-credit{margin-top:8px;text-align:center;color:var(--muted);font-size:10.5px}
+.footer-credit a{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="brand" href="#top">
+      <img src="hafiz.jpg" alt="Trade with Shariah">
+      <span><strong>Trade with Shariah</strong><small class="hi">आसान ट्रेडिंग शिक्षा</small></span>
+    </a>
+    <a class="tg-top join-link" href="#">
+      <span class="tg-icon"><svg viewBox="0 0 24 24"><path d="M21.8 3.2 18.5 20c-.25 1.18-.91 1.47-1.85.92l-5-3.68-2.41 2.32c-.27.27-.49.49-1 .49l.36-5.09 9.26-8.37c.4-.36-.09-.56-.63-.2L5.78 13.6.85 12.06c-1.07-.34-1.09-1.07.22-1.58L20.35 3c.9-.33 1.68.2 1.45.2Z"/></svg></span>
+      Join
+    </a>
+  </nav>
+
+  <section class="hero" id="top">
+    <div class="avatar"><img src="hafiz.jpg" alt="Trade with Shariah"></div>
+
+    <div class="badge"><span class="dot"></span><span class="hi">फ्री टेलीग्राम लर्निंग कम्युनिटी</span></div>
+
+    <h1>Trade with <em>Shariah</em></h1>
+
+    <p class="lead hi">सरल चार्ट उदाहरणों से Entry, Target और Stop-Loss सीखें — शुरुआती लोगों के लिए आसान तरीका।</p>
+    <p class="lead-ur ur" dir="rtl">آسان چارٹ کے ذریعے ٹریڈنگ سیکھیں۔</p>
+
+    <div class="namebox">
+      <label for="userName" class="hi">जॉइन करने से पहले अपनी जानकारी भरें</label>
+      <input type="text" id="userName" class="name-input" placeholder="अपना नाम लिखें · Your name" autocomplete="name">
+      <input type="number" id="userAge" class="name-input age-input" placeholder="अपनी उम्र लिखें · Your age" min="1" max="120" autocomplete="off" inputmode="numeric">
+      <div class="name-error" id="nameError"><span class="ic">!</span><span class="hi">पहले नाम और उम्र लिखें, फिर जॉइन करें</span></div>
+    </div>
+
+    <a class="btn join-link" href="#">
+      <svg viewBox="0 0 24 24"><path d="M21.8 3.2 18.5 20c-.25 1.18-.91 1.47-1.85.92l-5-3.68-2.41 2.32c-.27.27-.49.49-1 .49l.36-5.09 9.26-8.37c.4-.36-.09-.56-.63-.2L5.78 13.6.85 12.06c-1.07-.34-1.09-1.07.22-1.58L20.35 3c.9-.33 1.68.2 1.45.2Z"/></svg>
+      <span class="hi">टेलीग्राम पर फ्री जुड़ें</span>
+    </a>
+    <span class="free hi">कोई फीस नहीं · No paid tips · बिगिनर्स के लिए</span>
+  </section>
+
+  <div class="cards">
+    <div class="card"><span class="n">01</span><div><h3 class="hi">Entry पहचानें</h3><p class="hi">कब मार्केट में घुसना है, चार्ट से सीखें।</p></div></div>
+    <div class="card"><span class="n">02</span><div><h3 class="hi">Target सेट करें</h3><p class="hi">सही टारगेट लेवल पहचानना सीखें।</p></div></div>
+    <div class="card"><span class="n">03</span><div><h3 class="hi">Risk कंट्रोल करें</h3><p class="hi">Stop-Loss से अपनी पूंजी सुरक्षित रखें।</p></div></div>
+  </div>
+
+  <div class="info">
+    <h3 class="hi">चैनल में क्या मिलेगा?</h3>
+    <ul class="hi">
+      <li>रोज़ाना चार्ट-आधारित लर्निंग</li>
+      <li>कोई पेड टिप्स नहीं — सिर्फ शिक्षा</li>
+      <li>शुरुआत से सीखने वालों के लिए आसान भाषा</li>
+    </ul>
+  </div>
+
+  <div class="join">
+    <h2 class="hi">आज ही सीखना शुरू करें</h2>
+    <p class="hi">रोज़ाना चार्ट लर्निंग · 100% फ्री</p>
+    <a class="btn join-link" href="#">
+      <svg viewBox="0 0 24 24"><path d="M21.8 3.2 18.5 20c-.25 1.18-.91 1.47-1.85.92l-5-3.68-2.41 2.32c-.27.27-.49.49-1 .49l.36-5.09 9.26-8.37c.4-.36-.09-.56-.63-.2L5.78 13.6.85 12.06c-1.07-.34-1.09-1.07.22-1.58L20.35 3c.9-.33 1.68.2 1.45.2Z"/></svg>
+      <span class="hi">टेलीग्राम चैनल खोलें</span>
+    </a>
+  </div>
+
+  <div class="footer-credit hi">विज्ञापन: <a href="#" class="join-link" target="_blank" rel="noopener">SRS Marketing Agency</a></div>
+
+  <div class="disc">
+    <span class="hi">यह सामग्री केवल शिक्षा के उद्देश्य से है। यह निवेश, ट्रेडिंग या वित्तीय सलाह नहीं है।</span><br>
+    <span class="ur" dir="rtl">یہ مواد صرف تعلیمی مقاصد کے لیے ہے۔ یہ سرمایہ کاری کا مشورہ نہیں ہے۔</span><br>
+    For educational purposes only. Not investment or financial advice.
+  </div>
+
+</div>
+
+<script>
+(() => {
+'use strict';
+
+const CONFIG = Object.freeze({
+  pixelId: '1129855270004646',
+  telegramUrl: 'https://t.me/+ylmJGvU8uoIxOWFl',
+
+  pageViewDelayMs: 3000,
+  passiveReaderDelayMs: 8000,
+  minimumClickTimeMs: 1500,
+  confirmWindowMs: 4000,
+  trackedRedirectDelayMs: 700,
+  fastRedirectDelayMs: 50,
+
+  pageViewKey: 'shariah_pageview_sent',
+  leadKey: 'shariah_lead_sent'
+});
+
+const startedAt = Date.now();
+let pageViewTracked = false;
+let leadTracked = false;
+let redirectStarted = false;
+let humanInteraction = false;
+let hasScrolled = false;
+
+function createEventId(type) {
+  if (window.crypto && crypto.randomUUID) return type + '_' + crypto.randomUUID();
+  return type + '_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+}
+
+function sessionHas(key) { try { return sessionStorage.getItem(key) === '1'; } catch (e) { return false; } }
+function sessionSave(key) { try { sessionStorage.setItem(key, '1'); } catch (e) {} }
+
+function looksAutomated() {
+  if (navigator.webdriver === true) return true;
+  const ua = navigator.userAgent.toLowerCase();
+  const words = ['headless', 'phantomjs', 'selenium', 'puppeteer', 'playwright', 'crawler', 'spider', 'slurp', 'googlebot', 'bingbot', 'facebookexternalhit'];
+  return words.some(w => ua.includes(w));
+}
+
+function recordInteraction(event) {
+  if (!event.isTrusted) return;
+  humanInteraction = true;
+  if (event.type === 'scroll') hasScrolled = true;
+  checkQualifiedPageView();
+}
+['pointerdown', 'touchstart', 'keydown', 'scroll', 'mousemove'].forEach(name => {
+  window.addEventListener(name, recordInteraction, { passive: true, once: true });
+});
+
+function loadPixel() {
+  if (!window.fbq) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=true;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=true;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  }
+  if (window.__SHARIAH_PIXEL_INIT) return;
+  let registered = false;
+  try {
+    if (typeof fbq.getState === 'function') {
+      registered = fbq.getState().pixels.some(p => String(p.id) === String(CONFIG.pixelId));
+    }
+  } catch (e) {}
+  if (!registered) fbq('init', CONFIG.pixelId);
+  window.__SHARIAH_PIXEL_INIT = true;
+}
+
+function checkQualifiedPageView() {
+  if (pageViewTracked) return;
+  if (sessionHas(CONFIG.pageViewKey)) { pageViewTracked = true; return; }
+  if (looksAutomated()) return;
+  if (document.visibilityState !== 'visible') return;
+
+  const elapsed = Date.now() - startedAt;
+  const byInteraction = humanInteraction && elapsed >= CONFIG.pageViewDelayMs;
+  const byFocus = elapsed >= CONFIG.passiveReaderDelayMs && document.hasFocus();
+  if (!byInteraction && !byFocus) return;
+  if (typeof window.fbq !== 'function') return;
+
+  fbq('track', 'PageView', {
+    qualified_view: true,
+    human_interaction: humanInteraction,
+    scrolled: hasScrolled,
+    qualification: byInteraction ? 'interaction_3_seconds' : 'focused_8_seconds',
+    time_on_page: Math.round(elapsed / 1000)
+  }, { eventID: createEventId('pageview') });
+
+  pageViewTracked = true;
+  sessionSave(CONFIG.pageViewKey);
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') checkQualifiedPageView(); });
+setTimeout(checkQualifiedPageView, CONFIG.pageViewDelayMs);
+setTimeout(checkQualifiedPageView, CONFIG.passiveReaderDelayMs);
+
+function fireLead(elapsedMs, visitorName) {
+  if (leadTracked) return;
+  if (sessionHas(CONFIG.leadKey)) { leadTracked = true; return; }
+  if (typeof window.fbq !== 'function') return;
+
+  fbq('track', 'Lead', {
+    value: 0,
+    currency: 'INR',
+    content_name: 'Trade with Shariah',
+    destination: 'Telegram',
+    qualified_click: true,
+    human_interaction: humanInteraction,
+    time_on_page: Math.round(elapsedMs / 1000)
+  }, { eventID: createEventId('lead') });
+
+  leadTracked = true;
+  sessionSave(CONFIG.leadKey);
+}
+
+function showNameError(inputs) {
+  const errorBox = document.getElementById('nameError');
+  const list = Array.isArray(inputs) ? inputs : [inputs];
+
+  list.forEach(input => {
+    input.classList.remove('invalid');
+    void input.offsetWidth; /* restart shake animation */
+    input.classList.add('invalid');
+  });
+
+  if (errorBox) {
+    errorBox.classList.remove('show');
+    void errorBox.offsetWidth;
+    errorBox.classList.add('show');
+  }
+
+  document.querySelectorAll('.btn.join-link').forEach(b => {
+    b.classList.remove('flash-invalid');
+    void b.offsetWidth;
+    b.classList.add('flash-invalid');
+    setTimeout(() => b.classList.remove('flash-invalid'), 550);
+  });
+
+  const target = list[0];
+  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  target.focus({ preventScroll: true });
+}
+
+function handleTelegramClick(event) {
+  event.preventDefault();
+
+  /* ===== NAME + AGE GATE =====
+     Bina naam aur age likhe koi bhi Telegram button kaam nahi karega —
+     dono invalid inputs red ho jaate hain, animated error message dikhta hai,
+     aur user ko wahin le jaya jaata hai. */
+  const nameInput = document.getElementById('userName');
+  const ageInput = document.getElementById('userAge');
+  const name = nameInput ? nameInput.value.trim() : '';
+  const age = ageInput ? ageInput.value.trim() : '';
+
+  const invalid = [];
+  if (!name && nameInput) invalid.push(nameInput);
+  if (!age && ageInput) invalid.push(ageInput);
+
+  if (invalid.length) {
+    showNameError(invalid);
+    [nameInput, ageInput].forEach(input => {
+      if (!input) return;
+      input.addEventListener('input', function clearInvalid() {
+        if (input.value.trim()) {
+          input.classList.remove('invalid');
+          const stillInvalid = [nameInput, ageInput].some(i => i && !i.value.trim());
+          if (!stillInvalid) {
+            const errorBox = document.getElementById('nameError');
+            if (errorBox) errorBox.classList.remove('show');
+          }
+        }
+      }, { once: false });
+    });
+    return;
+  }
+
+  if (redirectStarted) {
+    window.location.assign(CONFIG.telegramUrl);
+    return;
+  }
+  redirectStarted = true;
+
+  const elapsed = Date.now() - startedAt;
+  const genuine = event.isTrusted && elapsed >= CONFIG.minimumClickTimeMs && !looksAutomated();
+
+  if (genuine) fireLead(elapsed, name, age);
+
+  setTimeout(() => {
+    window.location.assign(CONFIG.telegramUrl);
+  }, genuine ? CONFIG.trackedRedirectDelayMs : CONFIG.fastRedirectDelayMs);
+}
+
+function initButtons() {
+  document.querySelectorAll('.join-link').forEach(btn => {
+    btn.href = CONFIG.telegramUrl;
+    btn.addEventListener('click', handleTelegramClick);
+  });
+}
+
+loadPixel();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initButtons, { once: true });
+} else {
+  initButtons();
+}
+})();
+</script>
+
+</body>
+</html>
